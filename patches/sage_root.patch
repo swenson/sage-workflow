@@ -1,8 +1,9 @@
 # HG changeset patch
 # User R. Andrew Ohana <andrew.ohana@gmail.com>
-# Date 1332315826 -700
-# Node ID af0a1184db5c37f2813240f2c03da3f99157aa88
+# Date 1332316026 -700
+# Node ID 223e039dac2b6cc59124cb9d160db185544a30df
 # Parent  c9f8d2a1f12d2ebd12f182d857f947bd7e2da34c
 Git layout patch for the root repository
 add install script
+add deps file
 
