@@ -1,7 +1,7 @@
 # HG changeset patch
 # User R. Andrew Ohana <andrew.ohana@gmail.com>
-# Date 1332321189 -700
-# Node ID a68dd139c2492d7a3a2e02e3fefc6cd4a1a8aab4
+# Date 1332321208 -700
+# Node ID 841330c022681bf4f219a5e8f61200079ce89a0a
 # Parent  c9f8d2a1f12d2ebd12f182d857f947bd7e2da34c
 Git layout patch for the root repository
 add install script
@@ -10,7 +10,53 @@ remove version checking -- unneeded now and will break build
 deps actually unneeded
 nevermind, we need this
 massive update to deps
+first injection of git layout to sage-spkg
 
+diff --git a/spkg/bin/sage-spkg b/spkg/bin/sage-spkg
+--- a/spkg/bin/sage-spkg
++++ b/spkg/bin/sage-spkg
+@@ -175,6 +175,8 @@
+ if [ ! -f "$PKG_SRC" ]; then
+     if [ -f "$SAGE_PACKAGES/standard/$PKG_NAME.spkg" ]; then
+         PKG_SRC="$SAGE_PACKAGES/standard/$PKG_NAME.spkg"
++    elif [ -d "$SAGE_ROOT/devel/sage/spkg/$PKG_NAME" ]; then
++        GIT_LAYOUT=yes
+     else
+         if [ -f "$SAGE_PACKAGES/optional/$PKG_NAME.spkg" ]; then
+             PKG_SRC="$SAGE_PACKAGES/optional/$PKG_NAME.spkg"
+@@ -259,7 +261,9 @@
+     done
+ fi
+ 
+-if [ ! -f "$PKG_SRC" ]; then
++if [ ! -z "$GIT_LAYOUT" ]; then
++    PKG_SRC="$SAGE_ROOT/dist/$PKG_NAME.tar.bz2"
++elif [ ! -f "$PKG_SRC" ]; then
+     echo "$0: file $PKG_NAME does not exist"
+     echo "Attempting to download it."
+     CUR=`pwd`
+@@ -320,9 +324,18 @@
+     rm -rf "$PKG_NAME"
+ fi
+ 
+-bunzip2 -c "$PKG_SRC" 2>/dev/null | tar fx${UNTAR_VERBOSE} -  2>/dev/null
+-if [ ! -d "$PKG_NAME" ]; then
+-    tar fx${UNTAR_VERBOSE} "$PKG_SRC"
++if [ -z "$GIT_LAYOUT" ]; then
++    bunzip2 -c "$PKG_SRC" 2>/dev/null | tar fx${UNTAR_VERBOSE} -  2>/dev/null
++    if [ ! -d "$PKG_NAME" ]; then
++        tar fx${UNTAR_VERBOSE} "$PKG_SRC"
++    fi
++else
++    cp -r "$SAGE_ROOT/devel/sage/spkg/$PKG_NAME" "$PKG_NAME"
++    mkdir "$PKG_NAME"/src
++    if [ ! -f "$PKG_SRC" ]; then
++        # handle downloading
++    fi
++    bunzip2 -c "$PKG_SRC" >/dev/null | tar fx${UNTAR_VERSBOSE} - -C "$PKG_NAME"/src  2>/dev/null
+ fi
+ echo "Finished extraction"
+ 
 diff --git a/spkg/install b/spkg/install
 --- a/spkg/install
 +++ b/spkg/install
