@@ -1,7 +1,7 @@
 # HG changeset patch
 # User R. Andrew Ohana <andrew.ohana@gmail.com>
-# Date 1332318123 -700
-# Node ID 76bfd136f0f6d3ef53f66fec00caad393e225efd
+# Date 1332321189 -700
+# Node ID a68dd139c2492d7a3a2e02e3fefc6cd4a1a8aab4
 # Parent  c9f8d2a1f12d2ebd12f182d857f947bd7e2da34c
 Git layout patch for the root repository
 add install script
@@ -9,6 +9,7 @@ add deps file
 remove version checking -- unneeded now and will break build
 deps actually unneeded
 nevermind, we need this
+massive update to deps
 
 diff --git a/spkg/install b/spkg/install
 --- a/spkg/install
@@ -340,3 +341,864 @@ diff --git a/spkg/install b/spkg/install
  # If the user (or the Makefile) has set SAGE_PARALLEL_SPKG_BUILD=no,
  # then turn off parallel building by writing .NOTPARALLEL to
  # spkg/standard/parallel_make.cfg.  Otherwise clear that file.
+diff --git a/spkg/standard/deps b/spkg/standard/deps
+--- a/spkg/standard/deps
++++ b/spkg/standard/deps
+@@ -25,107 +25,103 @@
+ ###############################################################################
+ # The base system; required in order to run sage-spkg
+ ###############################################################################
+-BASE = $(INST)/$(PREREQ) $(INST)/$(DIR) $(INST)/$(SAGE_BZIP2)
++BASE = $(INST)/$(PREREQ) $(INST)/$(DIR) $(INST)/$(SAGE_BZIP2) untar_sage
+ 
+ # Tell make not to look for files with these (base)names:
+ .PHONY: all base scripts
+ 
+ # Targets
+ all: $(BASE) \
+-     $(INST)/$(SAGE_SCRIPTS) \
+-     $(INST)/$(ATLAS) \
+-     $(INST)/$(BLAS) \
+-     $(INST)/$(BOEHM_GC) \
+-     $(INST)/$(BOOST_CROPPED) \
+-     $(INST)/$(CDDLIB) \
+-     $(INST)/$(CEPHES) \
+-     $(INST)/$(CLIQUER) \
+-     $(INST)/$(CONWAY) \
+-     $(INST)/$(CVXOPT) \
+-     $(INST)/$(CYTHON) \
+-     $(INST)/$(DOCUTILS) \
+-     $(INST)/$(ECL) \
+-     $(INST)/$(ECLIB) \
+-     $(INST)/$(ECM) \
+-     $(INST)/$(ELLIPTIC_CURVES) \
+-     $(INST)/$(EXTCODE) \
+-     $(INST)/$(F2C) \
+-     $(INST)/$(FLINT) \
+-     $(INST)/$(FLINTQS) \
+-     $(INST)/$(FORTRAN) \
+-     $(INST)/$(FPLLL) \
+-     $(INST)/$(FREETYPE) \
+-     $(INST)/$(G2RED) \
+-     $(INST)/$(GAP) \
+-     $(INST)/$(GD) \
+-     $(INST)/$(GDMODULE) \
+-     $(INST)/$(GFAN) \
+-     $(INST)/$(GIVARO) \
+-     $(INST)/$(GLPK) \
+-     $(INST)/$(GNUTLS) \
+-     $(INST)/$(GRAPHS) \
+-     $(INST)/$(GSL) \
+-     $(INST)/$(ICONV) \
+-     $(INST)/$(IML) \
+-     $(INST)/$(IPYTHON) \
+-     $(INST)/$(JINJA2) \
+-     $(INST)/$(LAPACK) \
+-     $(INST)/$(LCALC) \
+-     $(INST)/$(LIBGCRYPT) \
+-     $(INST)/$(LIBGPG_ERROR) \
+-     $(INST)/$(LIBM4RI) \
+-     $(INST)/$(LIBM4RIE) \
+-     $(INST)/$(LIBPNG) \
+-     $(INST)/$(LINBOX) \
+-     $(INST)/$(MATPLOTLIB) \
+-     $(INST)/$(MAXIMA) \
+-     $(INST)/$(MERCURIAL) \
+-     $(INST)/$(MOIN) \
+-     $(INST)/$(MPFI) \
+-     $(INST)/$(MPFR) \
+-     $(INST)/$(MPIR) \
+-     $(INST)/$(MPMATH) \
+-     $(INST)/$(NETWORKX) \
+-     $(INST)/$(NTL) \
+-     $(INST)/$(NUMPY) \
+-     $(INST)/$(OPENCDK) \
+-     $(INST)/$(PALP) \
+-     $(INST)/$(PARI) \
+-     $(INST)/$(PATCH) \
+-     $(INST)/$(PEXPECT) \
+-     $(INST)/$(PIL) \
+-     $(INST)/$(POLYBORI) \
+-     $(INST)/$(POLYTOPES_DB) \
+-     $(INST)/$(PPL) \
+-     $(INST)/$(PYCRYPTO) \
+-     $(INST)/$(PYGMENTS) \
+-     $(INST)/$(PYNAC) \
+-     $(INST)/$(PYTHON) \
+-     $(INST)/$(PYTHON_GNUTLS) \
+-     $(INST)/$(RATPOINTS) \
+-     $(INST)/$(R) \
+-     $(INST)/$(READLINE) \
+-     $(INST)/$(RUBIKS) \
+-     $(INST)/$(SAGE) \
+-     $(INST)/$(SAGE_ROOT_REPO) \
+-     $(INST)/$(SAGENB) \
+-     $(INST)/$(SAGETEX) \
+-     $(INST)/$(SCIPY) \
+-     $(INST)/$(SCONS) \
+-     $(INST)/$(SETUPTOOLS) \
+-     $(INST)/$(SINGULAR) \
+-     $(INST)/$(SPHINX) \
+-     $(INST)/$(SQLALCHEMY) \
+-     $(INST)/$(SQLITE) \
+-     $(INST)/$(SYMMETRICA) \
+-     $(INST)/$(SYMPOW) \
+-     $(INST)/$(SYMPY) \
+-     $(INST)/$(TACHYON) \
+-     $(INST)/$(TERMCAP) \
+-     $(INST)/$(TWISTED) \
+-     $(INST)/$(ZLIB) \
+-     $(INST)/$(ZNPOLY) \
+-     $(INST)/$(ZODB)
++     $(INST)/atlas \
++     $(INST)/blas \
++     $(INST)/boehm_gc \
++     $(INST)/boost_cropped \
++     $(INST)/cddlib \
++     $(INST)/cephes \
++     $(INST)/cliquer \
++     $(INST)/conway \
++     $(INST)/cvxopt \
++     $(INST)/cython \
++     $(INST)/docutils \
++     $(INST)/ecl \
++     $(INST)/eclib \
++     $(INST)/ecm \
++     $(INST)/elliptic_curves \
++     $(INST)/f2c \
++     $(INST)/flint \
++     $(INST)/flintqs \
++     $(INST)/fortran \
++     $(INST)/fplll \
++     $(INST)/freetype \
++     $(INST)/genus2reduction \
++     $(INST)/gap \
++     $(INST)/gd \
++     $(INST)/gdmodule \
++     $(INST)/gfan \
++     $(INST)/givaro \
++     $(INST)/glpk \
++     $(INST)/gnutls \
++     $(INST)/graphs \
++     $(INST)/gsl \
++     $(INST)/iconv \
++     $(INST)/iml \
++     $(INST)/ipython \
++     $(INST)/jinja2 \
++     $(INST)/lapack \
++     $(INST)/lcalc \
++     $(INST)/libgcrypt \
++     $(INST)/libgpg_error \
++     $(INST)/libm4ri \
++     $(INST)/libm4rie \
++     $(INST)/libpng \
++     $(INST)/linbox \
++     $(INST)/matplotlib \
++     $(INST)/maxima \
++     $(INST)/mercurial \
++     $(INST)/moin \
++     $(INST)/mpfi \
++     $(INST)/mpfr \
++     $(INST)/mpir \
++     $(INST)/mpmath \
++     $(INST)/networkx \
++     $(INST)/ntl \
++     $(INST)/numpy \
++     $(INST)/opencdk \
++     $(INST)/palp \
++     $(INST)/pari \
++     $(INST)/patch \
++     $(INST)/pexpect \
++     $(INST)/pil \
++     $(INST)/polybori \
++     $(INST)/polytopes_db \
++     $(INST)/ppl \
++     $(INST)/pycrypto \
++     $(INST)/pygments \
++     $(INST)/pynac \
++     $(INST)/python \
++     $(INST)/python_gnutls \
++     $(INST)/ratpoints \
++     $(INST)/r \
++     $(INST)/readline \
++     $(INST)/rubiks \
++     $(INST)/sagenb \
++     $(INST)/sagetex \
++     $(INST)/scipy \
++     $(INST)/scons \
++     $(INST)/setuptools \
++     $(INST)/singular \
++     $(INST)/sphinx \
++     $(INST)/sqlalchemy \
++     $(INST)/sqlite \
++     $(INST)/symmetrica \
++     $(INST)/sympow \
++     $(INST)/sympy \
++     $(INST)/tachyon \
++     $(INST)/termcap \
++     $(INST)/twisted \
++     $(INST)/zlib \
++     $(INST)/zn_poly \
++     $(INST)/zodb
+ # Necessary when #9906 gets merged:
+ #     $(INST)/$(RPY) \
+ # (But move this up; it's just here because 'make' doesn't support comments
+@@ -137,310 +133,309 @@
+ 
+ # Everything needed to start up Sage using "./sage".  Of course, not
+ # every part of Sage will work.  It does not include Maxima for example.
+-SAGERUNTIME = $(INST)/$(SAGE_SCRIPTS) $(INST)/$(SAGE) $(INST)/$(SAGENB) \
+-              $(INST)/$(IPYTHON) $(INST)/$(GAP)
++SAGERUNTIME = $(INST)/$(SAGE_SCRIPTS) $(INST)/sage $(INST)/sagenb \
++              $(INST)/ipython $(INST)/gap
+ 
+ ###############################################################################
+ # Building the base system
+ ###############################################################################
+-$(INST)/$(DIR):
+-	$(PIPE) "base/$(DIR)-install 2>&1" "tee -a $(SAGE_LOGS)/$(DIR).log"
++$(INST)/dir:
++	$(PIPE) "base/dir-install 2>&1" "tee -a $(SAGE_LOGS)/dir.log"
+ 
+-$(INST)/$(PREREQ): $(INST)/$(DIR)
+-	$(PIPE) "base/$(PREREQ)-install 2>&1" "tee -a $(SAGE_LOGS)/$(PREREQ).log"
++$(INST)/prereq: $(INST)/$(DIR)
++	$(PIPE) "base/prereq-install 2>&1" "tee -a $(SAGE_LOGS)/prereq.log"
+ 
+-$(INST)/$(SAGE_BZIP2): $(INST)/$(PREREQ) $(INST)/$(DIR)
+-	$(PIPE) "base/$(SAGE_BZIP2)-install 2>&1" "tee -a $(SAGE_LOGS)/$(SAGE_BZIP2).log"
++$(INST)/bzip2: $(INST)/prereq $(INST)/$(DIR)
++	$(PIPE) "base/bzip2-install 2>&1" "tee -a $(SAGE_LOGS)/bzip2.log"
++
++untar_sage: $(INST)/bzip2
++    cd "$(SAGE_ROOT)/devel"
++	bunzip2 -c sage.tar.bz2 2>/dev/null | tar tar fx - 2>/dev/null
+ 
+ ###############################################################################
+ # Building normal packages
+ ###############################################################################
+-$(INST)/$(ATLAS): $(BASE) $(INST)/$(LAPACK) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(ATLAS) 2>&1" "tee -a $(SAGE_LOGS)/$(ATLAS).log"
++$(INST)/atlas: $(BASE) $(INST)/lapack $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) atlas 2>&1" "tee -a $(SAGE_LOGS)/atlas.log"
+ 
+-$(INST)/$(BOEHM_GC): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(BOEHM_GC) 2>&1" "tee -a $(SAGE_LOGS)/$(BOEHM_GC).log"
++$(INST)/boehm_gc: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) boehm_gc 2>&1" "tee -a $(SAGE_LOGS)/boehm_gc.log"
+ 
+-$(INST)/$(BOOST_CROPPED): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(BOOST_CROPPED) 2>&1" "tee -a $(SAGE_LOGS)/$(BOOST_CROPPED).log"
++$(INST)/boost_cropped: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) boost_cropped 2>&1" "tee -a $(SAGE_LOGS)/boost_cropped.log"
+ 
+-$(INST)/$(CLIQUER): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(CLIQUER) 2>&1" "tee -a $(SAGE_LOGS)/$(CLIQUER).log"
++$(INST)/cliquer: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) cliquer 2>&1" "tee -a $(SAGE_LOGS)/cliquer.log"
+ 
+-$(INST)/$(TERMCAP): $(BASE) $(INST)/$(PATCH)
++$(INST)/termcap: $(BASE) $(INST)/patch
+ 	+$(PIPE) "$(SAGE_SPKG) $(TERMCAP) 2>&1" "tee -a $(SAGE_LOGS)/$(TERMCAP).log"
+ 
+-$(INST)/$(READLINE): $(BASE) $(INST)/$(PATCH) $(INST)/$(TERMCAP)
+-	+$(PIPE) "$(SAGE_SPKG) $(READLINE) 2>&1" "tee -a $(SAGE_LOGS)/$(READLINE).log"
++$(INST)/readline: $(BASE) $(INST)/patch $(INST)/$(TERMCAP)
++	+$(PIPE) "$(SAGE_SPKG) readline 2>&1" "tee -a $(SAGE_LOGS)/readline.log"
+ 
+-$(INST)/$(ICONV): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(ICONV) 2>&1" "tee -a $(SAGE_LOGS)/$(ICONV).log"
++$(INST)/iconv: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) iconv 2>&1" "tee -a $(SAGE_LOGS)/iconv.log"
+ 
+-$(INST)/$(DOCUTILS): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(DOCUTILS) 2>&1" "tee -a $(SAGE_LOGS)/$(DOCUTILS).log"
++$(INST)/docutils: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) docutils 2>&1" "tee -a $(SAGE_LOGS)/docutils.log"
+ 
+-$(INST)/$(ELLIPTIC_CURVES): $(BASE) $(INST)/$(PATCH) $(INST)/$(PYTHON) \
+-        $(INST)/$(SQLITE)
++$(INST)/elliptic_curves: $(BASE) $(INST)/patch $(INST)/python \
++        $(INST)/sqlite
+ 	+$(PIPE) "$(SAGE_SPKG) $(ELLIPTIC_CURVES) 2>&1" "tee -a $(SAGE_LOGS)/$(ELLIPTIC_CURVES).log"
+ 
+-$(INST)/$(CONWAY): $(BASE) $(INST)/$(PATCH)
++$(INST)/conway: $(BASE) $(INST)/patch
+ 	+$(PIPE) "$(SAGE_SPKG) $(CONWAY) 2>&1" "tee -a $(SAGE_LOGS)/$(CONWAY).log"
+ 
+-$(INST)/$(GRAPHS): $(BASE) $(INST)/$(PATCH)
++$(INST)/graphs: $(BASE) $(INST)/patch
+ 	+$(PIPE) "$(SAGE_SPKG) $(GRAPHS) 2>&1" "tee -a $(SAGE_LOGS)/$(GRAPHS).log"
+ 
+-$(INST)/$(GLPK): $(BASE) $(INST)/$(MPIR) $(INST)/$(ZLIB) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(GLPK) 2>&1" "tee -a $(SAGE_LOGS)/$(GLPK).log"
++$(INST)/glpk: $(BASE) $(INST)/mpir $(INST)/zlib $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) glpk 2>&1" "tee -a $(SAGE_LOGS)/glpk.log"
+ 
+-$(INST)/$(PYTHON): $(BASE) $(INST)/$(ZLIB) \
+-		   $(INST)/$(READLINE) $(INST)/$(SQLITE) \
+-		   $(INST)/$(GNUTLS) $(INST)/$(LIBPNG) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PYTHON) 2>&1" "tee -a $(SAGE_LOGS)/$(PYTHON).log"
++$(INST)/python: $(BASE) $(INST)/zlib \
++		   $(INST)/readline $(INST)/sqlite \
++		   $(INST)/gnutls $(INST)/libpng $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) python 2>&1" "tee -a $(SAGE_LOGS)/python.log"
+ 
+-$(INST)/$(PATCH): $(BASE) 
+-	+$(PIPE) "$(SAGE_SPKG) $(PATCH) 2>&1" "tee -a $(SAGE_LOGS)/$(PATCH).log"
++$(INST)/patch: $(BASE) 
++	+$(PIPE) "$(SAGE_SPKG) patch 2>&1" "tee -a $(SAGE_LOGS)/patch.log"
+ 
+-$(INST)/$(MPIR): $(BASE) $(INST)/$(ICONV) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(MPIR) 2>&1" "tee -a $(SAGE_LOGS)/$(MPIR).log"
++$(INST)/mpir: $(BASE) $(INST)/iconv $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) mpir 2>&1" "tee -a $(SAGE_LOGS)/mpir.log"
+ 
+-$(INST)/$(GSL): $(BASE) $(INST)/$(ATLAS) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(GSL) 2>&1" "tee -a $(SAGE_LOGS)/$(GSL).log"
++$(INST)/gsl: $(BASE) $(INST)/atlas $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) gsl 2>&1" "tee -a $(SAGE_LOGS)/gsl.log"
+ 
+-$(INST)/$(NTL): $(BASE) $(INST)/$(MPIR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(NTL) 2>&1" "tee -a $(SAGE_LOGS)/$(NTL).log"
++$(INST)/ntl: $(BASE) $(INST)/mpir $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) ntl 2>&1" "tee -a $(SAGE_LOGS)/ntl.log"
+ 
+-$(INST)/$(FPLLL): $(BASE) $(INST)/$(MPIR) $(INST)/$(MPFR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(FPLLL) 2>&1" "tee -a $(SAGE_LOGS)/$(FPLLL).log"
++$(INST)/fplll: $(BASE) $(INST)/mpir $(INST)/mpfr $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) fplll 2>&1" "tee -a $(SAGE_LOGS)/fplll.log"
+ 
+-$(INST)/$(PARI): $(BASE) $(INST)/$(READLINE) \
+-		 $(INST)/$(MPIR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PARI) 2>&1" "tee -a $(SAGE_LOGS)/$(PARI).log"
++$(INST)/pari: $(BASE) $(INST)/readline \
++		 $(INST)/mpir $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) pari 2>&1" "tee -a $(SAGE_LOGS)/pari.log"
+ 
+-$(INST)/$(POLYBORI): $(BASE) $(INST)/$(PYTHON) $(INST)/$(SCONS) \
+-		     $(INST)/$(BOOST_CROPPED) $(INST)/$(LIBM4RI) \
+-		     $(INST)/$(GD) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(POLYBORI) 2>&1" "tee -a $(SAGE_LOGS)/$(POLYBORI).log"
++$(INST)/polybori: $(BASE) $(INST)/python $(INST)/scons \
++		     $(INST)/boost_cropped $(INST)/libm4ri \
++		     $(INST)/gd $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) polybori 2>&1" "tee -a $(SAGE_LOGS)/polybori.log"
+ 
+-$(INST)/$(POLYTOPES_DB): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(POLYTOPES_DB) 2>&1" "tee -a $(SAGE_LOGS)/$(POLYTOPES_DB).log"
++$(INST)/polytopes_db: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) polytopes_db 2>&1" "tee -a $(SAGE_LOGS)/polytopes_db.log"
+ 
+-$(INST)/$(PPL): $(BASE) $(INST)/$(MPIR)
+-	+$(PIPE) "$(SAGE_SPKG) $(PPL) 2>&1" "tee -a $(SAGE_LOGS)/$(PPL).log"
++$(INST)/ppl: $(BASE) $(INST)/mpir
++	+$(PIPE) "$(SAGE_SPKG) ppl 2>&1" "tee -a $(SAGE_LOGS)/ppl.log"
+ 
+-$(INST)/$(MPFR): $(BASE) $(INST)/$(MPIR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(MPFR) 2>&1" "tee -a $(SAGE_LOGS)/$(MPFR).log"
++$(INST)/mpfr: $(BASE) $(INST)/mpir $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) mpfr 2>&1" "tee -a $(SAGE_LOGS)/mpfr.log"
+ 
+-$(INST)/$(MPFI): $(BASE) $(INST)/$(MPIR) $(INST)/$(MPFR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(MPFI) 2>&1" "tee -a $(SAGE_LOGS)/$(MPFI).log"
++$(INST)/mpfi: $(BASE) $(INST)/mpir $(INST)/mpfr $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) mpfi 2>&1" "tee -a $(SAGE_LOGS)/mpfi.log"
+ 
+-$(INST)/$(GIVARO): $(BASE) $(INST)/$(MPIR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(GIVARO) 2>&1" "tee -a $(SAGE_LOGS)/$(GIVARO).log"
++$(INST)/givaro: $(BASE) $(INST)/mpir $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) givaro 2>&1" "tee -a $(SAGE_LOGS)/givaro.log"
+ 
+-$(INST)/$(LINBOX): $(BASE) $(INST)/$(MPIR) $(INST)/$(NTL) $(INST)/$(GIVARO) \
+-		   $(INST)/$(GSL) $(INST)/$(ATLAS) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(LINBOX) 2>&1" "tee -a $(SAGE_LOGS)/$(LINBOX).log"
++$(INST)/linbox: $(BASE) $(INST)/mpir $(INST)/ntl $(INST)/givaro \
++		   $(INST)/gsl $(INST)/atlas $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) linbox 2>&1" "tee -a $(SAGE_LOGS)/linbox.log"
+ 
+-$(INST)/$(IML): $(BASE) $(INST)/$(MPIR) $(INST)/$(GSL) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(IML) 2>&1" "tee -a $(SAGE_LOGS)/$(IML).log"
++$(INST)/iml: $(BASE) $(INST)/mpir $(INST)/gsl $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) iml 2>&1" "tee -a $(SAGE_LOGS)/iml.log"
+ 
+-$(INST)/$(ECLIB): $(BASE) $(INST)/$(MPIR) $(INST)/$(PARI) $(INST)/$(NTL) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(ECLIB) 2>&1" "tee -a $(SAGE_LOGS)/$(ECLIB).log"
++$(INST)/eclib: $(BASE) $(INST)/mpir $(INST)/pari $(INST)/ntl $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) eclib 2>&1" "tee -a $(SAGE_LOGS)/eclib.log"
+ 
+-$(INST)/$(G2RED): $(BASE) $(INST)/$(PARI) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(G2RED) 2>&1" "tee -a $(SAGE_LOGS)/$(G2RED).log"
++$(INST)/genus2reduction: $(BASE) $(INST)/pari $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) genus2reduction 2>&1" "tee -a $(SAGE_LOGS)/genus2reduction.log"
+ 
+-$(INST)/$(PALP): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PALP) 2>&1" "tee -a $(SAGE_LOGS)/$(PALP).log"
++$(INST)/palp: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) palp 2>&1" "tee -a $(SAGE_LOGS)/palp.log"
+ 
+-$(INST)/$(LCALC): $(BASE) $(INST)/$(PARI) $(INST)/$(MPFR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(LCALC) 2>&1" "tee -a $(SAGE_LOGS)/$(LCALC).log"
++$(INST)/lcalc: $(BASE) $(INST)/pari $(INST)/mpfr $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) lcalc 2>&1" "tee -a $(SAGE_LOGS)/lcalc.log"
+ 
+-$(INST)/$(PYNAC): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PYNAC) 2>&1" "tee -a $(SAGE_LOGS)/$(PYNAC).log"
++$(INST)/pynac: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) pynac 2>&1" "tee -a $(SAGE_LOGS)/pynac.log"
+ 
+-$(INST)/$(SYMPOW): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SYMPOW) 2>&1" "tee -a $(SAGE_LOGS)/$(SYMPOW).log"
++$(INST)/sympow: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) sympow 2>&1" "tee -a $(SAGE_LOGS)/sympow.log"
+ 
+-$(INST)/$(SYMMETRICA): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SYMMETRICA) 2>&1" "tee -a $(SAGE_LOGS)/$(SYMMETRICA).log"
++$(INST)/symmetrica: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) symmetrica 2>&1" "tee -a $(SAGE_LOGS)/symmetrica.log"
+ 
+ # GAP requires Sage so that gap_reset_workspace works:
+-$(INST)/$(GAP): $(BASE) $(INST)/$(READLINE) $(INST)/$(SAGE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(GAP) 2>&1" "tee -a $(SAGE_LOGS)/$(GAP).log"
++$(INST)/gap: $(BASE) $(INST)/readline $(INST)/sage $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) gap 2>&1" "tee -a $(SAGE_LOGS)/gap.log"
+ 
+-$(INST)/$(IPYTHON): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(IPYTHON) 2>&1" "tee -a $(SAGE_LOGS)/$(IPYTHON).log"
++$(INST)/ipython: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) ipython 2>&1" "tee -a $(SAGE_LOGS)/ipython.log"
+ 
+-$(INST)/$(PEXPECT): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PEXPECT) 2>&1" "tee -a $(SAGE_LOGS)/$(PEXPECT).log"
++$(INST)/pexpect: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) pexpect 2>&1" "tee -a $(SAGE_LOGS)/pexpect.log"
+ 
+-$(INST)/$(GD): $(BASE) $(INST)/$(LIBPNG) $(INST)/$(FREETYPE) $(INST)/$(ICONV) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(GD) 2>&1" "tee -a $(SAGE_LOGS)/$(GD).log"
++$(INST)/gd: $(BASE) $(INST)/libpng $(INST)/freetype $(INST)/iconv $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) gd 2>&1" "tee -a $(SAGE_LOGS)/gd.log"
+ 
+-$(INST)/$(GDMODULE): $(BASE) $(INST)/$(PYTHON) $(INST)/$(GD) $(INST)/$(ICONV) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(GDMODULE) 2>&1" "tee -a $(SAGE_LOGS)/$(GDMODULE).log"
++$(INST)/gdmodule: $(BASE) $(INST)/python $(INST)/gd $(INST)/iconv $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) gdmodule 2>&1" "tee -a $(SAGE_LOGS)/gdmodule.log"
+ 
+-$(INST)/$(OPENCDK): $(BASE) $(INST)/$(ZLIB) $(INST)/$(LIBGCRYPT) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(OPENCDK) 2>&1" "tee -a $(SAGE_LOGS)/$(OPENCDK).log"
++$(INST)/opencdk: $(BASE) $(INST)/zlib $(INST)/libgcrypt $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) opencdk 2>&1" "tee -a $(SAGE_LOGS)/opencdk.log"
+ 
+-$(INST)/$(LIBGPG_ERROR): $(BASE) $(INST)/$(ICONV)  $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(LIBGPG_ERROR) 2>&1" "tee -a $(SAGE_LOGS)/$(LIBGPG_ERROR).log"
++$(INST)/libgpg_error: $(BASE) $(INST)/iconv  $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) libgpg_error 2>&1" "tee -a $(SAGE_LOGS)/libgpg_error.log"
+ 
+-$(INST)/$(LIBGCRYPT): $(BASE) $(INST)/$(LIBGPG_ERROR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(LIBGCRYPT) 2>&1" "tee -a $(SAGE_LOGS)/$(LIBGCRYPT).log"
++$(INST)/libgcrypt: $(BASE) $(INST)/libgpg_error $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) libgcrypt 2>&1" "tee -a $(SAGE_LOGS)/libgcrypt.log"
+ 
+-$(INST)/$(GNUTLS): $(BASE) $(INST)/$(ZLIB) $(INST)/$(OPENCDK) \
+-		   $(INST)/$(LIBGCRYPT) $(INST)/$(LIBGPG_ERROR)  $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(GNUTLS) 2>&1" "tee -a $(SAGE_LOGS)/$(GNUTLS).log"
++$(INST)/gnutls: $(BASE) $(INST)/zlib $(INST)/opencdk \
++		   $(INST)/libgcrypt $(INST)/libgpg_error  $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) gnutls 2>&1" "tee -a $(SAGE_LOGS)/gnutls.log"
+ 
+-$(INST)/$(PYTHON_GNUTLS): $(BASE) $(INST)/$(GNUTLS) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PYTHON_GNUTLS) 2>&1" "tee -a $(SAGE_LOGS)/$(PYTHON_GNUTLS).log"
++$(INST)/python_gnutls: $(BASE) $(INST)/gnutls $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) python_gnutls 2>&1" "tee -a $(SAGE_LOGS)/python_gnutls.log"
+ 
+-$(INST)/$(SCONS): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SCONS) 2>&1" "tee -a $(SAGE_LOGS)/$(SCONS).log"
++$(INST)/scons: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) scons 2>&1" "tee -a $(SAGE_LOGS)/scons.log"
+ 
+-$(INST)/$(RUBIKS): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(RUBIKS) 2>&1" "tee -a $(SAGE_LOGS)/$(RUBIKS).log"
++$(INST)/rubiks: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) rubiks 2>&1" "tee -a $(SAGE_LOGS)/rubiks.log"
+ 
+ # extcode must be built before MoinMoin because it has jsmath in it:
+-$(INST)/$(MOIN): $(BASE) $(INST)/$(PYTHON) $(INST)/$(EXTCODE) \
+-		 $(INST)/$(SAGENB) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(MOIN) 2>&1" "tee -a $(SAGE_LOGS)/$(MOIN).log"
++$(INST)/moin: $(BASE) $(INST)/python $(INST)/$(EXTCODE) \
++		 $(INST)/sagenb $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) moin 2>&1" "tee -a $(SAGE_LOGS)/moin.log"
+ 
+-$(INST)/$(SQLITE): $(BASE) $(INST)/$(READLINE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SQLITE) 2>&1" "tee -a $(SAGE_LOGS)/$(SQLITE).log"
++$(INST)/sqlite: $(BASE) $(INST)/readline $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) sqlite 2>&1" "tee -a $(SAGE_LOGS)/sqlite.log"
+ 
+-$(INST)/$(MERCURIAL): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(MERCURIAL) 2>&1" "tee -a $(SAGE_LOGS)/$(MERCURIAL).log"
++$(INST)/mercurial: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) mercurial 2>&1" "tee -a $(SAGE_LOGS)/mercurial.log"
+ 
+ # To build SageTeX, you just need Python, but to test (SAGE_CHECK=yes)
+ # SageTeX, you actually need to run sage, produce plots,...
+-$(INST)/$(SAGETEX): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH) \
+-                    $(SAGERUNTIME) $(INST)/$(MAXIMA) $(INST)/$(SCIPY) \
+-                    $(INST)/$(MATPLOTLIB) $(INST)/$(PIL) $(INST)/$(TACHYON)
+-	+$(PIPE) "$(SAGE_SPKG) $(SAGETEX) 2>&1" "tee -a $(SAGE_LOGS)/$(SAGETEX).log"
++$(INST)/sagetex: $(BASE) $(INST)/python $(INST)/patch \
++                    $(SAGERUNTIME) $(INST)/maxima $(INST)/scipy \
++                    $(INST)/matplotlib $(INST)/pil $(INST)/tachyon
++	+$(PIPE) "$(SAGE_SPKG) sagetex 2>&1" "tee -a $(SAGE_LOGS)/sagetex.log"
+ 
+-$(INST)/$(SETUPTOOLS): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SETUPTOOLS) 2>&1" "tee -a $(SAGE_LOGS)/$(SETUPTOOLS).log"
++$(INST)/setuptools: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) setuptools 2>&1" "tee -a $(SAGE_LOGS)/setuptools.log"
+ 
+-$(INST)/$(SINGULAR): $(BASE) $(INST)/$(MPIR) $(INST)/$(NTL) \
+-		     $(INST)/$(READLINE) $(INST)/$(MPFR)  $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SINGULAR) 2>&1" "tee -a $(SAGE_LOGS)/$(SINGULAR).log"
++$(INST)/singular: $(BASE) $(INST)/mpir $(INST)/ntl \
++		     $(INST)/readline $(INST)/mpfr  $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) singular 2>&1" "tee -a $(SAGE_LOGS)/singular.log"
+ 
+-$(INST)/$(PYCRYPTO): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PYCRYPTO) 2>&1" "tee -a $(SAGE_LOGS)/$(PYCRYPTO).log"
++$(INST)/pycrypto: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) pycrypto 2>&1" "tee -a $(SAGE_LOGS)/pycrypto.log"
+ 
+-$(INST)/$(NETWORKX): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(NETWORKX) 2>&1" "tee -a $(SAGE_LOGS)/$(NETWORKX).log"
++$(INST)/networkx: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) networkx 2>&1" "tee -a $(SAGE_LOGS)/networkx.log"
+ 
+-$(INST)/$(MPMATH): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(MPMATH) 2>&1" "tee -a $(SAGE_LOGS)/$(MPMATH).log"
++$(INST)/mpmath: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) mpmath 2>&1" "tee -a $(SAGE_LOGS)/mpmath.log"
+ 
+-$(INST)/$(ZLIB): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(ZLIB) 2>&1" "tee -a $(SAGE_LOGS)/$(ZLIB).log"
++$(INST)/zlib: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) zlib 2>&1" "tee -a $(SAGE_LOGS)/zlib.log"
+ 
+ ##  << NON-GUI matplotlib >>
+-$(INST)/$(FREETYPE): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(FREETYPE) 2>&1" "tee -a $(SAGE_LOGS)/$(FREETYPE).log"
++$(INST)/freetype: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) freetype 2>&1" "tee -a $(SAGE_LOGS)/freetype.log"
+ 
+-$(INST)/$(LIBPNG): $(BASE) $(INST)/$(ZLIB) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(LIBPNG) 2>&1" "tee -a $(SAGE_LOGS)/$(LIBPNG).log"
++$(INST)/libpng: $(BASE) $(INST)/zlib $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) libpng 2>&1" "tee -a $(SAGE_LOGS)/libpng.log"
+ 
+-$(INST)/$(MATPLOTLIB): $(BASE) $(INST)/$(PYTHON) $(INST)/$(NUMPY) \
+-		       $(INST)/$(FREETYPE) $(INST)/$(LIBPNG) \
+-		       $(INST)/$(GDMODULE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(MATPLOTLIB) 2>&1" "tee -a $(SAGE_LOGS)/$(MATPLOTLIB).log"
++$(INST)/matplotlib: $(BASE) $(INST)/python $(INST)/numpy \
++		       $(INST)/freetype $(INST)/libpng \
++		       $(INST)/gdmodule $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) matplotlib 2>&1" "tee -a $(SAGE_LOGS)/matplotlib.log"
+ ####
+ 
+-$(INST)/$(CDDLIB): $(BASE) $(INST)/$(MPIR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(CDDLIB) 2>&1" "tee -a $(SAGE_LOGS)/$(CDDLIB).log"
++$(INST)/cddlib: $(BASE) $(INST)/mpir $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) cddlib 2>&1" "tee -a $(SAGE_LOGS)/cddlib.log"
+ 
+-$(INST)/$(GFAN): $(BASE) $(INST)/$(MPIR) $(INST)/$(CDDLIB) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(GFAN) 2>&1" "tee -a $(SAGE_LOGS)/$(GFAN).log"
++$(INST)/gfan: $(BASE) $(INST)/mpir $(INST)/cddlib $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) gfan 2>&1" "tee -a $(SAGE_LOGS)/gfan.log"
+ 
+-$(INST)/$(TACHYON): $(BASE) $(INST)/$(LIBPNG) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(TACHYON) 2>&1" "tee -a $(SAGE_LOGS)/$(TACHYON).log"
++$(INST)/tachyon: $(BASE) $(INST)/libpng $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) tachyon 2>&1" "tee -a $(SAGE_LOGS)/tachyon.log"
+ 
+-$(INST)/$(ECM): $(BASE) $(INST)/$(MPIR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(ECM) 2>&1" "tee -a $(SAGE_LOGS)/$(ECM).log"
++$(INST)/ecm: $(BASE) $(INST)/mpir $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) ecm 2>&1" "tee -a $(SAGE_LOGS)/ecm.log"
+ 
+-$(INST)/$(RATPOINTS): $(BASE) $(INST)/$(MPIR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(RATPOINTS) 2>&1" "tee -a $(SAGE_LOGS)/$(RATPOINTS).log"
++$(INST)/ratpoints: $(BASE) $(INST)/mpir $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) ratpoints 2>&1" "tee -a $(SAGE_LOGS)/ratpoints.log"
+ 
+-$(INST)/$(ECL): $(BASE) $(INST)/$(MPIR) \
+-		$(INST)/$(READLINE) $(INST)/$(BOEHM_GC) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(ECL) 2>&1" "tee -a $(SAGE_LOGS)/$(ECL).log"
++$(INST)/ecl: $(BASE) $(INST)/mpir \
++		$(INST)/readline $(INST)/boehm_gc $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) ecl 2>&1" "tee -a $(SAGE_LOGS)/ecl.log"
+ 
+-$(INST)/$(MAXIMA): $(BASE) $(INST)/$(ECL) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(MAXIMA) 2>&1" "tee -a $(SAGE_LOGS)/$(MAXIMA).log"
++$(INST)/maxima: $(BASE) $(INST)/ecl $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) maxima 2>&1" "tee -a $(SAGE_LOGS)/maxima.log"
+ 
+ # Note that even with a separate RPy spkg (#9906), Sage's R will still depend on
+ # Python (but does no longer on SAGE_SCRIPTS, #10016):
+-$(INST)/$(R): $(BASE) $(INST)/$(PYTHON) $(INST)/$(ATLAS) $(INST)/$(ICONV) $(INST)/$(FORTRAN) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(R) 2>&1" "tee -a $(SAGE_LOGS)/$(R).log"
++$(INST)/r: $(BASE) $(INST)/python $(INST)/atlas $(INST)/iconv $(INST)/fortran $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) r 2>&1" "tee -a $(SAGE_LOGS)/r.log"
+ 
+ # Needed when #9906 gets merged (moving RPy out of R's spkg):
+-# $(INST)/$(RPY): $(BASE) $(INST)/$(PYTHON) $(INST)/$(R) $(INST)/$(PATCH)
++# $(INST)/$(RPY): $(BASE) $(INST)/python $(INST)/r $(INST)/patch
+ # 	+$(PIPE) "$(SAGE_SPKG) $(RPY) 2>&1" "tee -a $(SAGE_LOGS)/$(RPY).log"
+ 
+-$(INST)/$(SYMPY): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SYMPY) 2>&1" "tee -a $(SAGE_LOGS)/$(SYMPY).log"
++$(INST)/sympy: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) sympy 2>&1" "tee -a $(SAGE_LOGS)/sympy.log"
+ 
+-$(INST)/$(CYTHON): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(CYTHON) 2>&1" "tee -a $(SAGE_LOGS)/$(CYTHON).log"
++$(INST)/cython: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) cython 2>&1" "tee -a $(SAGE_LOGS)/cython.log"
+ 
+-$(INST)/$(FLINTQS): $(BASE) $(INST)/$(MPIR) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(FLINTQS) 2>&1" "tee -a $(SAGE_LOGS)/$(FLINTQS).log"
++$(INST)/flintqs: $(BASE) $(INST)/mpir $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) flintqs 2>&1" "tee -a $(SAGE_LOGS)/flintqs.log"
+ 
+-$(INST)/$(FLINT): $(BASE) $(INST)/$(MPIR) $(INST)/$(NTL) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(FLINT) 2>&1" "tee -a $(SAGE_LOGS)/$(FLINT).log"
++$(INST)/flint: $(BASE) $(INST)/mpir $(INST)/ntl $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) flint 2>&1" "tee -a $(SAGE_LOGS)/flint.log"
+ 
+ # Mercurial must be built before building extcode. See trac ticket #6508.
+-$(INST)/$(EXTCODE): $(BASE) $(INST)/$(MERCURIAL)
++$(INST)/$(EXTCODE): $(BASE) $(INST)/mercurial
+ 	+$(PIPE) "$(SAGE_SPKG) $(EXTCODE) 2>&1" "tee -a $(SAGE_LOGS)/$(EXTCODE).log"
+ 
+-$(INST)/$(LIBM4RI): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(LIBM4RI) 2>&1" "tee -a $(SAGE_LOGS)/$(LIBM4RI).log"
++$(INST)/libm4ri: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) libm4ri 2>&1" "tee -a $(SAGE_LOGS)/libm4ri.log"
+ 
+-$(INST)/$(LIBM4RIE): $(BASE) $(INST)/$(PATCH) $(INST)/$(LIBM4RI) $(INST)/$(GIVARO) $(INST)/$(NTL)
+-	+$(PIPE) "$(SAGE_SPKG) $(LIBM4RIE) 2>&1" "tee -a $(SAGE_LOGS)/$(LIBM4RIE).log"
++$(INST)/libm4rie: $(BASE) $(INST)/patch $(INST)/libm4ri $(INST)/givaro $(INST)/ntl
++	+$(PIPE) "$(SAGE_SPKG) libm4rie 2>&1" "tee -a $(SAGE_LOGS)/libm4rie.log"
+ 
+ # zn_poly really does depend on Python, despite this is far from obvious.
+ # The 'configure' script in zn_poly calls Python to make a 'makefile'.
+-$(INST)/$(ZNPOLY): $(BASE) $(INST)/$(MPIR) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(ZNPOLY) 2>&1" "tee -a $(SAGE_LOGS)/$(ZNPOLY).log"
+-
+-# the spkg-install file for the root repo uses many 'hg' commands, so
+-# build mercurial first.
+-$(INST)/$(SAGE_ROOT_REPO): $(BASE) $(INST)/$(MERCURIAL)
+-	+$(PIPE) "$(SAGE_SPKG) $(SAGE_ROOT_REPO) 2>&1" "tee -a $(SAGE_LOGS)/$(SAGE_ROOT_REPO).log"
++$(INST)/zn_poly: $(BASE) $(INST)/mpir $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) zn_poly 2>&1" "tee -a $(SAGE_LOGS)/zn_poly.log"
+ 
+ # setuptools forgets to update easy-install.pth during parallel
+ # builds, so we build the relevant packages serially.  Note: To avoid
+ # branching, we haven't given explicit dependencies, but the chain's
+ # order is important.
+-$(INST)/$(SAGENB): $(BASE) $(INST)/$(SQLALCHEMY) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SAGENB) 2>&1" "tee -a $(SAGE_LOGS)/$(SAGENB).log"
++$(INST)/sagenb: $(BASE) $(INST)/sqlalchemy $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) sagenb 2>&1" "tee -a $(SAGE_LOGS)/sagenb.log"
+ 
+-$(INST)/$(SQLALCHEMY): $(BASE) $(INST)/$(SPHINX) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SQLALCHEMY) 2>&1" "tee -a $(SAGE_LOGS)/$(SQLALCHEMY).log"
++$(INST)/sqlalchemy: $(BASE) $(INST)/sphinx $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) sqlalchemy 2>&1" "tee -a $(SAGE_LOGS)/sqlalchemy.log"
+ 
+-$(INST)/$(SPHINX): $(BASE) $(INST)/$(JINJA2) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SPHINX) 2>&1" "tee -a $(SAGE_LOGS)/$(SPHINX).log"
++$(INST)/sphinx: $(BASE) $(INST)/jinja2 $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) sphinx 2>&1" "tee -a $(SAGE_LOGS)/sphinx.log"
+ 
+-$(INST)/$(JINJA2): $(BASE) $(INST)/$(PYGMENTS) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(JINJA2) 2>&1" "tee -a $(SAGE_LOGS)/$(JINJA2).log"
++$(INST)/jinja2: $(BASE) $(INST)/pygments $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) jinja2 2>&1" "tee -a $(SAGE_LOGS)/jinja2.log"
+ 
+-$(INST)/$(PYGMENTS): $(BASE) $(INST)/$(ZODB) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PYGMENTS) 2>&1" "tee -a $(SAGE_LOGS)/$(PYGMENTS).log"
++$(INST)/pygments: $(BASE) $(INST)/zodb $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) pygments 2>&1" "tee -a $(SAGE_LOGS)/pygments.log"
+ 
+-$(INST)/$(ZODB): $(BASE) $(INST)/$(TWISTED) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(ZODB) 2>&1" "tee -a $(SAGE_LOGS)/$(ZODB).log"
++$(INST)/zodb: $(BASE) $(INST)/twisted $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) zodb 2>&1" "tee -a $(SAGE_LOGS)/zodb.log"
+ 
+-$(INST)/$(TWISTED): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PYTHON_GNUTLS) \
+-		    $(INST)/$(PEXPECT) $(INST)/$(DOCUTILS) \
+-		    $(INST)/$(SETUPTOOLS) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(TWISTED) 2>&1" "tee -a $(SAGE_LOGS)/$(TWISTED).log"
++$(INST)/twisted: $(BASE) $(INST)/python $(INST)/python_gnutls \
++		    $(INST)/pexpect $(INST)/docutils \
++		    $(INST)/setuptools $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) twisted 2>&1" "tee -a $(SAGE_LOGS)/twisted.log"
+ 
+ # For reference and for when the setuptools problem is solved, here
+ # are the actual dependencies:
+@@ -459,96 +454,81 @@
+ # Sage library (e.g. SAGE_SCRIPTS, SCONS, MERCURIAL, JINJA2), and on the
+ # other hand all dependencies for Cython files (e.g. PARI, NTL, MPIR).
+ ########################################################################
+-$(INST)/$(SAGE): $(BASE) \
+-		 $(INST)/$(ATLAS) \
+-		 $(INST)/$(CEPHES) \
+-		 $(INST)/$(CLIQUER) \
+-		 $(INST)/$(CYTHON) \
+-		 $(INST)/$(ECL) \
+-		 $(INST)/$(ECLIB) \
+-		 $(INST)/$(ECM) \
+-		 $(INST)/$(FLINT) \
+-		 $(INST)/$(FPLLL) \
+-		 $(INST)/$(GD) \
+-		 $(INST)/$(GIVARO) \
+-		 $(INST)/$(GLPK) \
+-		 $(INST)/$(GSL) \
+-		 $(INST)/$(IML) \
+-		 $(INST)/$(JINJA2) \
+-		 $(INST)/$(LCALC) \
+-		 $(INST)/$(LIBM4RI) \
+-		 $(INST)/$(LIBM4RIE) \
+-		 $(INST)/$(LIBPNG) \
+-		 $(INST)/$(LINBOX) \
+-		 $(INST)/$(MERCURIAL) \
+-		 $(INST)/$(MPFI) \
+-		 $(INST)/$(MPFR) \
+-		 $(INST)/$(MPIR) \
+-		 $(INST)/$(NTL) \
+-		 $(INST)/$(NUMPY) \
+-		 $(INST)/$(PARI) \
+-		 $(INST)/$(POLYBORI) \
+-		 $(INST)/$(PPL) \
+-		 $(INST)/$(PYNAC) \
+-		 $(INST)/$(PYTHON) \
+-		 $(INST)/$(RATPOINTS) \
+-		 $(INST)/$(READLINE) \
+-		 $(INST)/$(SAGE_SCRIPTS) \
+-		 $(INST)/$(SCONS) \
+-		 $(INST)/$(SINGULAR) \
+-		 $(INST)/$(SYMMETRICA) \
+-		 $(INST)/$(ZNPOLY)
+-	+$(PIPE) "$(SAGE_SPKG) $(SAGE) 2>&1" "tee -a $(SAGE_LOGS)/$(SAGE).log"
+-
+-# Rather than making *all* standard packages depend on SAGE_SCRIPTS (which
+-# triggers the rebuild of *every* package on an upgrade), add SAGE_SCRIPTS
+-# to the dependencies of only those packages that rely on them.
+-# These are (as of Sage 4.7.2):
+-# - The Sage library, $(SAGE)
+-# - sagetex, but this in turn depends on $(SAGE)
+-#
+-# Because of ticket #11073 (remove the base repo), merged in sage-5.0,
+-# a version 5.x scripts repo does not work together with a version 4.x
+-# root repo.  When upgrading, we must therefore install the new root
+-# repo before the scripts repo.
+-$(INST)/$(SAGE_SCRIPTS): $(BASE) $(INST)/$(SAGE_ROOT_REPO)
+-	+$(PIPE) "$(SAGE_SPKG) $(SAGE_SCRIPTS) 2>&1" "tee -a $(SAGE_LOGS)/$(SAGE_SCRIPTS).log"
++$(INST)/sage: $(BASE) \
++		 $(INST)/atlas \
++		 $(INST)/cephes \
++		 $(INST)/cliquer \
++		 $(INST)/cython \
++		 $(INST)/ecl \
++		 $(INST)/eclib \
++		 $(INST)/ecm \
++		 $(INST)/flint \
++		 $(INST)/fplll \
++		 $(INST)/gd \
++		 $(INST)/givaro \
++		 $(INST)/glpk \
++		 $(INST)/gsl \
++		 $(INST)/iml \
++		 $(INST)/jinja2 \
++		 $(INST)/lcalc \
++		 $(INST)/libm4ri \
++		 $(INST)/libm4rie \
++		 $(INST)/libpng \
++		 $(INST)/linbox \
++		 $(INST)/mercurial \
++		 $(INST)/mpfi \
++		 $(INST)/mpfr \
++		 $(INST)/mpir \
++		 $(INST)/ntl \
++		 $(INST)/numpy \
++		 $(INST)/pari \
++		 $(INST)/polybori \
++		 $(INST)/ppl \
++		 $(INST)/pynac \
++		 $(INST)/python \
++		 $(INST)/ratpoints \
++		 $(INST)/readline \
++		 $(INST)/scons \
++		 $(INST)/singular \
++		 $(INST)/symmetrica \
++		 $(INST)/zn_poly
++	+$(PIPE) "$(SAGE_SPKG) sage 2>&1" "tee -a $(SAGE_LOGS)/sage.log"
+ 
+ ###############################################################################
+ # Further receipts for normal packages:
+ ###############################################################################
+ 
+ # Do not remove PYTHON below -- see trac 9368
+-$(INST)/$(FORTRAN): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(FORTRAN) 2>&1" "tee -a $(SAGE_LOGS)/$(FORTRAN).log"
++$(INST)/fortran: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) fortran 2>&1" "tee -a $(SAGE_LOGS)/fortran.log"
+ 
+-$(INST)/$(F2C): $(BASE) $(INST)/$(FORTRAN) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(F2C) 2>&1" "tee -a $(SAGE_LOGS)/$(F2C).log"
++$(INST)/f2c: $(BASE) $(INST)/fortran $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) f2c 2>&1" "tee -a $(SAGE_LOGS)/f2c.log"
+ 
+-$(INST)/$(PIL): $(BASE) $(INST)/$(PYTHON) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(PIL) 2>&1" "tee -a $(SAGE_LOGS)/$(PIL).log"
++$(INST)/pil: $(BASE) $(INST)/python $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) pil 2>&1" "tee -a $(SAGE_LOGS)/pil.log"
+ 
+-$(INST)/$(LAPACK): $(BASE) $(INST)/$(FORTRAN) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(LAPACK) 2>&1" "tee -a $(SAGE_LOGS)/$(LAPACK).log"
++$(INST)/lapack: $(BASE) $(INST)/fortran $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) lapack 2>&1" "tee -a $(SAGE_LOGS)/lapack.log"
+ 
+-$(INST)/$(BLAS): $(BASE) $(INST)/$(FORTRAN) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(BLAS) 2>&1" "tee -a $(SAGE_LOGS)/$(BLAS).log"
++$(INST)/blas: $(BASE) $(INST)/fortran $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) blas 2>&1" "tee -a $(SAGE_LOGS)/blas.log"
+ 
+-$(INST)/$(NUMPY): $(BASE) $(INST)/$(PYTHON) $(INST)/$(FORTRAN) $(INST)/$(F2C) \
+-		  $(INST)/$(LAPACK) $(INST)/$(BLAS) $(INST)/$(ATLAS) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(NUMPY) 2>&1" "tee -a $(SAGE_LOGS)/$(NUMPY).log"
++$(INST)/numpy: $(BASE) $(INST)/python $(INST)/fortran $(INST)/f2c \
++		  $(INST)/lapack $(INST)/blas $(INST)/atlas $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) numpy 2>&1" "tee -a $(SAGE_LOGS)/numpy.log"
+ 
+-$(INST)/$(SCIPY): $(BASE) $(INST)/$(FORTRAN) $(INST)/$(F2C) \
+-		  $(INST)/$(LAPACK) $(INST)/$(BLAS) $(INST)/$(NUMPY) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(SCIPY) 2>&1" "tee -a $(SAGE_LOGS)/$(SCIPY).log"
++$(INST)/scipy: $(BASE) $(INST)/fortran $(INST)/f2c \
++		  $(INST)/lapack $(INST)/blas $(INST)/numpy $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) scipy 2>&1" "tee -a $(SAGE_LOGS)/scipy.log"
+ 
+-$(INST)/$(CVXOPT): $(BASE) $(INST)/$(FORTRAN) $(INST)/$(F2C) \
+-		   $(INST)/$(LAPACK) $(INST)/$(BLAS) $(INST)/$(NUMPY) \
+-		   $(INST)/$(ATLAS) $(INST)/$(CEPHES) $(INST)/$(PATCH) \
+-		   $(INST)/$(GSL) $(INST)/$(GLPK)
+-	+$(PIPE) "$(SAGE_SPKG) $(CVXOPT) 2>&1" "tee -a $(SAGE_LOGS)/$(CVXOPT).log"
++$(INST)/cvxopt: $(BASE) $(INST)/fortran $(INST)/f2c \
++		   $(INST)/lapack $(INST)/blas $(INST)/numpy \
++		   $(INST)/atlas $(INST)/cephes $(INST)/patch \
++		   $(INST)/gsl $(INST)/glpk
++	+$(PIPE) "$(SAGE_SPKG) cvxopt 2>&1" "tee -a $(SAGE_LOGS)/cvxopt.log"
+ 
+-$(INST)/$(CEPHES): $(BASE) $(INST)/$(PATCH)
+-	+$(PIPE) "$(SAGE_SPKG) $(CEPHES) 2>&1" "tee -a $(SAGE_LOGS)/$(CEPHES).log"
++$(INST)/cephes: $(BASE) $(INST)/patch
++	+$(PIPE) "$(SAGE_SPKG) cephes 2>&1" "tee -a $(SAGE_LOGS)/cephes.log"
+ 
+ ###############################################################################
