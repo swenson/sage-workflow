@@ -111,9 +111,14 @@ for commit in repo.walk(repo.head.oid, GIT_SORT_TIME):
       print commit.message
       branch = 'issue_branch_' + ticket
       resp = github_create_branch(branch, base)
-      print 'branch', resp.status_code
+      print base
+      print 'branch', resp.status_code, resp.json()
+      if resp.status_code != 201:
+        continue
       resp = github_create_pr_issue(ticket, GITHUB_USERNAME + ':' + branch, head)
       print 'pr_issue', resp.status_code
+  except KeyboardInterrupt:
+    exit()
   except:
     print "Error... ignoring"
 
